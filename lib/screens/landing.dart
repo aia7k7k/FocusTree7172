@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
+//import 'package:flutter/rendering.dart';
 
 class LandingScreen extends StatefulWidget {
-  createstate() => LandingScreenState();
+  createState() => LandingScreenState();
 }
 
 class LandingScreenState extends State<LandingScreen> {
-  
   Widget build(BuildContext context){
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Center(
-            child: Text(
-              'something'
-            )
-            )
-        ],
+      body: Container(
+        child: Text(
+          'something'
+        )
       )
     );
   }
