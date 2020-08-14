@@ -29,6 +29,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
   flutter_svg: ^0.18.0
+  font_awesome_flutter: '>= 4.7.0'
 
 dev_dependencies:
   flutter_test:
@@ -47,3 +48,15 @@ flutter:
 
   assets:
     - assets/svg/logowithtextblack.svg
+    - assets/svg/google.svg
+    - assets/photos/google.png
+
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat-Medium.ttf
+        - asset: assets/fonts/Montserrat-Light.ttf
+          style: italic
+        - asset: assets/fonts/Montserrat-Regular.ttf
+        - asset: assets/fonts/Montserrat-Bold.ttf
+

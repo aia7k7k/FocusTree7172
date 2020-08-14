@@ -26,7 +26,7 @@ class LandingScreenState extends State<LandingScreen> {
                   SizedBox(
                     width: double.infinity,
                     height: 45.0,
-                    child: FlatButton(
+                    child: FlatButton( //login
                       color: Colors.transparent,
                       shape: RoundedRectangleBorder(side: BorderSide(
                         color: Colors.black,
@@ -36,10 +36,16 @@ class LandingScreenState extends State<LandingScreen> {
                         borderRadius: BorderRadius.circular(30.0)
                       ),
                       child: Text(
-                        'something'
+                        'Sign In',
+                        style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black
+                        )
                       ),
                       onPressed: (){
                         debugPrint("something");
+                        Navigator.pushReplacementNamed(context, '/login');
                       },
                     )
                   ),
@@ -50,14 +56,17 @@ class LandingScreenState extends State<LandingScreen> {
                     child: GestureDetector(
                       onTap: (){
                         debugPrint("something esle");
+                        Navigator.pushReplacementNamed(context, '/signup');
                       },
-                      child: Material(
+                      child: Material( //signup
                         color: Colors.green,
                         borderRadius: BorderRadius.circular(30.0),
                         child: Center(
                           child: Text(
-                            'something',
+                            'Sign Up',
                             style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w700,
                               color: Colors.white
                             )
                           )

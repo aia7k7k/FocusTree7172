@@ -12,7 +12,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
 
       routes: {
-        '/': (context) => LandingScreen()
+        '/': (context) => LandingScreen(),
+        '/login': (context) => LoginPage(),
+        '/signup': (context) => SignupPage()
       }
 
     );
