@@ -48,7 +48,7 @@ flutter:
 
   assets:
     - assets/svg/logowithtextblack.svg
-    - assets/svg/google.svg
+    - assets/svg/logoBlack.svg
     - assets/photos/google.png
 
   fonts:

@@ -13,12 +13,12 @@ class LoginPageState extends State<LoginPage> {
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
       body: Container(
-        padding: EdgeInsets.all(30.0),
+        padding: EdgeInsets.only(left: 30, top:0, right:30, bottom: 30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Container(
-              padding: EdgeInsets.fromLTRB(65.0, 0.0, 65.0, 0.0),
+              padding: EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
               child: SvgPicture.asset(svgLogoTextBlack)
             ),
             Container(
@@ -27,6 +27,7 @@ class LoginPageState extends State<LoginPage> {
                 children: <Widget>[
                   TextField( //email textfield
                     decoration: InputDecoration(
+                      hintText: 'john.yuan@gmail.com',
                       labelText: 'EMAIL',
                       labelStyle: TextStyle(
                         fontFamily: 'Montserrat',
@@ -41,6 +42,7 @@ class LoginPageState extends State<LoginPage> {
                   SizedBox(height: 20.0), //spacer
                   TextField( //Password textfield
                     decoration: InputDecoration(
+                      hintText: 'Apple123?',
                       labelText: 'PASSWORD',
                       labelStyle: TextStyle(
                         fontFamily: 'Montserrat',
@@ -71,6 +73,37 @@ class LoginPageState extends State<LoginPage> {
                   ),
                 ],
               ),
+            ),
+            Container(
+              padding: EdgeInsets.only(left:15, right: 15),
+              child: SizedBox(
+                width: double.infinity,
+                height: 45.0,
+                child: GestureDetector(
+                  onTap: (){
+                    debugPrint('working');
+                  },
+                  child: Material(
+                    color: Colors.transparent,
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                        color: Colors.green,
+                        width: 3,
+                        style: BorderStyle.solid
+                      ),
+                      borderRadius: BorderRadius.circular(30.0)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Login'
+                        )
+                      ]
+                    )
+                  )
+                )
+              )
             ),
             Container(
               child: Text(
@@ -135,7 +168,7 @@ class LoginPageState extends State<LoginPage> {
                       )
                     ),
                     onTap: (){
-                      debugPrint("wokring");
+                      Navigator.pushReplacementNamed(context, '/signup');
                     }
                   )
                 ]
