@@ -44,7 +44,7 @@ class LandingScreenState extends State<LandingScreen> {
                         )
                       ),
                       onPressed: (){
-                        debugPrint("something");
+                        //debugPrint("something");
                         Navigator.pushReplacementNamed(context, '/login');
                       },
                     )
@@ -55,7 +55,7 @@ class LandingScreenState extends State<LandingScreen> {
                     height: 45.0,
                     child: GestureDetector(
                       onTap: (){
-                        debugPrint("something esle");
+                        //debugPrint("something esle");
                         Navigator.pushReplacementNamed(context, '/signup');
                       },
                       child: Material( //signup

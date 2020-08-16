@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "314280238797",
+    "firebase_url": "https://focusleak.firebaseio.com",
+    "project_id": "focusleak",
+    "storage_bucket": "focusleak.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314280238797:android:c426fd890d0d86e8539384",
+        "android_client_info": {
+          "package_name": "dev.focustree.ver1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "314280238797-bla0r2abg1p4rsm67nd23ki226tc36gj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.focustree.ver1",
+            "certificate_hash": "02573466a84a5887998ca52a31aed5463bec01ab"
+          }
+        },
+        {
+          "client_id": "314280238797-gvnmlghbfer4rcd419881oqr5qkovuca.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmmyRuShP-hD2LqHYGvcI97ewJ33KNURE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "314280238797-gvnmlghbfer4rcd419881oqr5qkovuca.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

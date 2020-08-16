@@ -18,8 +18,30 @@ class LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Container(
-              padding: EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
-              child: SvgPicture.asset(svgLogoTextBlack)
+              padding: EdgeInsets.fromLTRB(50.0, 40.0, 50.0, 0.0),
+              //child: SvgPicture.asset(svgLogoTextBlack)
+              child: Column(
+                children: [
+                  Text(
+                    'Sign in',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 40
+                    )
+                  ),
+                  Text(
+                    'FocusTree',
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 40
+                    )
+                  )
+                ]
+              )
             ),
             Container(
               padding: EdgeInsets.only(left:15.0, right: 15.0),
@@ -27,7 +49,7 @@ class LoginPageState extends State<LoginPage> {
                 children: <Widget>[
                   TextField( //email textfield
                     decoration: InputDecoration(
-                      hintText: 'john.yuan@gmail.com',
+                      hintText: 'Example: john.yuan@gmail.com',
                       labelText: 'EMAIL',
                       labelStyle: TextStyle(
                         fontFamily: 'Montserrat',
@@ -42,7 +64,7 @@ class LoginPageState extends State<LoginPage> {
                   SizedBox(height: 20.0), //spacer
                   TextField( //Password textfield
                     decoration: InputDecoration(
-                      hintText: 'Apple123?',
+                      hintText: 'Example: Apple123?',
                       labelText: 'PASSWORD',
                       labelStyle: TextStyle(
                         fontFamily: 'Montserrat',
@@ -75,105 +97,120 @@ class LoginPageState extends State<LoginPage> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left:15, right: 15),
-              child: SizedBox(
-                width: double.infinity,
-                height: 45.0,
-                child: GestureDetector(
-                  onTap: (){
-                    debugPrint('working');
-                  },
-                  child: Material(
-                    color: Colors.transparent,
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        color: Colors.green,
-                        width: 3,
-                        style: BorderStyle.solid
-                      ),
-                      borderRadius: BorderRadius.circular(30.0)
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Login'
-                        )
-                      ]
-                    )
-                  )
-                )
-              )
-            ),
-            Container(
-              child: Text(
-                'or'
-              )
-            ),
-            Container(
-              padding: EdgeInsets.only(left:15.0, right:15.0),
-              child: SizedBox(
-                width: double.infinity,
-                height: 45.0,
-                child: GestureDetector(
-                  onTap: (){
-                    debugPrint('working');
-                  },
-                  child: Material(
-                    color: Colors.transparent,
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        color: Colors.red,
-                        width: 3,
-                        style: BorderStyle.solid
-                      ),
-                      borderRadius: BorderRadius.circular(30.0)
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          FontAwesomeIcons.google,
-                          color: Colors.red
-                        ),
-                        SizedBox(width: 15.0),
-                        Text(
-                          'Sign in with Google'
-                        )
-                      ],
-                    )
-                  )
-                ),
-              )
-            ),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: Column(
                 children: [
-                  Text(
-                    "Don't have an account?",
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w500
+                  Container(
+                    padding: EdgeInsets.only(left:15, right: 15),
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 45.0,
+                      child: GestureDetector(
+                        onTap: (){
+                          debugPrint('working');
+                        },
+                        child: Material(
+                          color: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              color: Colors.green,
+                              width: 3,
+                              style: BorderStyle.solid
+                            ),
+                            borderRadius: BorderRadius.circular(30.0)
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Login'
+                              )
+                            ]
+                          )
+                        )
+                      )
                     )
                   ),
-                  SizedBox(width: 5.0),
-                  GestureDetector(
+                  SizedBox(
+                    height: 15
+                  ),
+                  Container(
                     child: Text(
-                      'Sign up',
-                      style: TextStyle(
-                        color: Colors.green,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w500
-                      )
+                      'or'
+                    )
+                  ),
+                  SizedBox(
+                    height: 15
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left:15.0, right:15.0),
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 45.0,
+                      child: GestureDetector(
+                        onTap: (){
+                          debugPrint('working');
+                        },
+                        child: Material(
+                          color: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              color: Colors.red,
+                              width: 3,
+                              style: BorderStyle.solid
+                            ),
+                            borderRadius: BorderRadius.circular(30.0)
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                FontAwesomeIcons.google,
+                                color: Colors.red
+                              ),
+                              SizedBox(width: 15.0),
+                              Text(
+                                'Sign in with Google'
+                              )
+                            ],
+                          )
+                        )
+                      ),
+                    )
+                  ),
+                  SizedBox(
+                    height: 35
+                  ),
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Don't have an account?",
+                          style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w500
+                          )
+                        ),
+                        SizedBox(width: 5.0),
+                        GestureDetector(
+                          child: Text(
+                            'Sign up',
+                            style: TextStyle(
+                              color: Colors.green,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w500
+                            )
+                          ),
+                          onTap: (){
+                            Navigator.pushReplacementNamed(context, '/signup');
+                          }
+                        )
+                      ]
                     ),
-                    onTap: (){
-                      Navigator.pushReplacementNamed(context, '/signup');
-                    }
                   )
                 ]
-              ),
-            )
+              )
+            ),
           ],
         )
       )
