@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../helpers/const.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../servers/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
   createState() => LoginPageState();
 }
 
 class LoginPageState extends State<LoginPage> {
+
+  AuthService auth = AuthService();
 
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -141,14 +145,19 @@ class LoginPageState extends State<LoginPage> {
                   SizedBox(
                     height: 15
                   ),
-                  Container(
+                  Container( // login with google
                     padding: EdgeInsets.only(left:15.0, right:15.0),
                     child: SizedBox(
                       width: double.infinity,
                       height: 45.0,
                       child: GestureDetector(
-                        onTap: (){
-                          debugPrint('working');
+                        onTap: () async {
+                          //debugPrint('working');
+                          var user = await auth.googleSignIn();
+
+                          if(user!= null) {
+                            Navigator.pushReplacementNamed(context, '/temp');
+                          }
                         },
                         child: Material(
                           color: Colors.transparent,
