@@ -1,15 +1,30 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 // ignore: unused_import
 import '../helpers/const.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../helpers/Utilities.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../servers/services.dart';
+
 
 class SignupPage extends StatefulWidget {
   createState() => SignupPageState();
 }
 
 class SignupPageState extends State<SignupPage> {
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  String _email, _password, _fName, _lName;
+
+  final firestoreInstance = Firestore.instance;
+  AuthService auth = AuthService();
+
   Widget build(BuildContext context) {
+
+    var user = Provider.of<FirebaseUser>(context);
+
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: Container(
@@ -44,6 +59,100 @@ class SignupPageState extends State<SignupPage> {
               )
             ),
             Container(
+              padding: EdgeInsets.only(left:15, right:15),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
+                    TextFormField( 
+                      validator: (email) {
+                        if(email.isEmpty){
+                          return 'Provide an email please';
+                        }
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'Example: john.yuen@gmail.com',
+                        labelText: 'EMAIL',
+                        labelStyle: TextStyle(
+                          color: Colors.grey,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.green)
+                        )
+                      ),
+                      onSaved: (input) => _email = input
+                    ),
+                    SizedBox(height: 15),
+                    TextFormField(
+                      validator: (pass) {
+                        //if(pass.length < 6 && validateFields(pass)){
+                        if(pass.length < 6) {
+                          return 'Provide a password that is at lease 6 characters long, with an upper case letter, a lower case letter, 1 numeric number and 1 special character';
+                        }
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'Example: Apple123?',
+                        labelText: 'PASSWORD',
+                        labelStyle: TextStyle(
+                          color: Colors.grey,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.green)
+                        )
+                      ),
+                      onSaved: (input) => _password = input,
+                    ),
+                    SizedBox(height:15),
+                    TextFormField(
+                      validator: (fN) {
+                        if(fN.isEmpty) {
+                          return 'please provide a first name';
+                        }
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'Example: Jayden',
+                        labelText: 'FIRST NAME',
+                        labelStyle: TextStyle(
+                          color: Colors.grey,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.green)
+                        )
+                      ),
+                      onSaved: (input) => _fName = input,
+                    ),
+                    SizedBox(height: 15),
+                    TextFormField(
+                      validator: (lN) {
+                        if(lN.isEmpty){
+                          return 'please provide a last name';
+                        }
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'Example: Smith',
+                        labelText: 'LAST NAME',
+                        labelStyle: TextStyle(
+                          color: Colors.grey,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.bold
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.green)
+                        )
+                      ),
+                      onSaved: (input) => _lName = input,
+                    )
+                  ]
+                )
+              )
+            ),
+            /*Container(
               padding: EdgeInsets.only(left:15, right: 15),
               child: Column(
                 children: [
@@ -108,8 +217,8 @@ class SignupPageState extends State<SignupPage> {
                   )
                 ]
               )
-            ),
-            Container(
+            ),*/
+            Container( //login button
               child: Column(
                 children: [
                   Container(
@@ -119,7 +228,26 @@ class SignupPageState extends State<SignupPage> {
                       height: 45.0,
                       child: GestureDetector(
                         onTap: (){
-                          debugPrint('working');
+                          //debugPrint('working');
+                          _formKey.currentState.save();
+                          try{
+                            FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email, password: _password);
+                            firestoreInstance.collection('users').document(user.uid).setData(
+                              {
+                                "firstName" :_fName,
+                                "lastName" : _lName
+                              }
+                            );
+                            Navigator.pushReplacementNamed(context, '/temp');
+                          }
+                          catch(e){
+                            debugPrint(e);
+                          }
+                          /*_formKey.currentState.save();
+                          debugPrint(_password);
+                          debugPrint(_email);
+                          debugPrint(_lName);
+                          debugPrint(_fName);*/
                         },
                         child: Material(
                           color: Colors.transparent,
@@ -160,8 +288,15 @@ class SignupPageState extends State<SignupPage> {
                       width: double.infinity,
                       height: 45.0,
                       child: GestureDetector(
-                        onTap: (){
-                          debugPrint('working');
+                        onTap: () async {
+                          //debugPrint('working');
+
+                          var user = await auth.googleSignIn();
+
+                          if(user!= null) {
+                            Navigator.pushReplacementNamed(context, '/temp');
+                          }
+
                         },
                         child: Material(
                           color: Colors.transparent,
@@ -229,4 +364,20 @@ class SignupPageState extends State<SignupPage> {
       )
     );
   }
+  /*void signUp(){
+
+    if(_formKey.currentState.validate()) {
+      FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email, password: _password);
+
+      FirebaseUser user = Provider.of<FirebaseUser>(context);
+      firestoreInstance.collection('users').document(user.uid).setData(
+        {
+          
+          "firstName" : _fName,
+          "lastName" : _lName
+        }
+      );
+      Navigator.pushReplacementNamed(context, '/temp');
+    }
+  }*/
 }
