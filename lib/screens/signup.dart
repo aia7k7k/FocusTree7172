@@ -232,13 +232,20 @@ class SignupPageState extends State<SignupPage> {
                           _formKey.currentState.save();
                           try{
                             FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email, password: _password);
-                            firestoreInstance.collection('users').document(user.uid).setData(
+                            /*firestoreInstance.collection('users').document(user.uid).setData(
                               {
                                 "firstName" :_fName,
                                 "lastName" : _lName
                               }
+                            );*/
+                            FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
+                             auth.getUser.then(
+                              (user) {
+                                if(user != null) {
+                                  Navigator.pushReplacementNamed(context, '/temp');
+                                }
+                              }
                             );
-                            Navigator.pushReplacementNamed(context, '/temp');
                           }
                           catch(e){
                             debugPrint(e);

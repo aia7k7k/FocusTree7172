@@ -11,6 +11,8 @@ class LoginPage extends StatefulWidget {
 
 class LoginPageState extends State<LoginPage> {
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  String _email, _password;
   AuthService auth = AuthService();
 
   Widget build(BuildContext context) {
@@ -49,6 +51,77 @@ class LoginPageState extends State<LoginPage> {
             ),
             Container(
               padding: EdgeInsets.only(left:15.0, right: 15.0),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
+                    Column(
+                      children: [
+                        TextFormField(
+                          validator: (email) {
+                            if(email.isEmpty){
+                              return 'please provide a last name';
+                            }
+                          },
+                          decoration: InputDecoration(
+                            hintText: 'Example: example@gmail.com',
+                            labelText: 'EMAIL',
+                            labelStyle: TextStyle(
+                              color: Colors.grey,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.bold
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.green)
+                            )
+                          ),
+                          onSaved: (input) => _email = input,
+                        ),
+                        SizedBox(height: 15),
+                        TextFormField(
+                          obscureText: true,
+                          validator: (password) {
+                            if(password.isEmpty){
+                              return 'please provide a last name';
+                            }
+                          },
+                          decoration: InputDecoration(
+                            hintText: 'Example: Apple123?',
+                            labelText: 'PASSWORD',
+                            labelStyle: TextStyle(
+                              color: Colors.grey,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.bold
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.green)
+                            )
+                          ),
+                          onSaved: (input) => _password = input,
+                        ),
+                        Container(
+                          alignment: Alignment(1.0,0.0),
+                          padding: EdgeInsets.only(top:15.0, left:20),
+                          child: GestureDetector(
+                            child: Text(
+                              'Forget Pasword',
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green
+                              )
+                            ),
+                            onTap: (){
+                              //debugPrint("works");
+                            }
+                          )
+                        ),
+                      ],
+                    )
+                  ],
+                )
+              )
+              /*
               child: Column(
                 children: <Widget>[
                   TextField( //email textfield
@@ -98,7 +171,7 @@ class LoginPageState extends State<LoginPage> {
                     )
                   ),
                 ],
-              ),
+              ),*/
             ),
             Container(
               child: Column(
@@ -109,8 +182,29 @@ class LoginPageState extends State<LoginPage> {
                       width: double.infinity,
                       height: 45.0,
                       child: GestureDetector(
-                        onTap: (){
-                          debugPrint('working');
+                        onTap: () async{
+                          //debugPrint('working');
+                           _formKey.currentState.save();
+                           //debugPrint(_email);
+                           //debugPrint(_password);
+                           try{
+                              final _trimmedEmail = _email.trim();
+                              final _trimmedPassword = _password.trim();
+                              debugPrint(_trimmedEmail);
+                              debugPrint(_trimmedPassword);
+                              FirebaseAuth.instance.signInWithEmailAndPassword(email: _trimmedEmail, password: _trimmedPassword);
+                              await new Future.delayed(Duration(seconds:1));
+                              auth.getUser.then(
+                              (user) {
+                                if(user != null) {
+                                  Navigator.pushReplacementNamed(context, '/temp');
+                                }
+                              }
+                            );
+                           }
+                           catch(e){
+                             print(e);
+                           }
                         },
                         child: Material(
                           color: Colors.transparent,

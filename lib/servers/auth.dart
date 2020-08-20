@@ -44,4 +44,9 @@ class AuthService {
       'lastActivity': DateTime.now()
     }, merge: true);
   }
+
+  void _signOut() async {
+    await FirebaseAuth.instance.signOut();
+    await _googleSignIn.signOut();
+  }
 }
