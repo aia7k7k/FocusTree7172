@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 //import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../helpers/const.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../servers/services.dart';
 
@@ -22,6 +24,21 @@ class LandingScreenState extends State<LandingScreen> {
         }
       }
     );
+    new Timer(new Duration(milliseconds: 200), () {
+      checkFirstTime();
+    });
+  }
+
+  Future checkFirstTime() async {
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool _seen = (prefs.getBool('seenFirst')?? false);
+
+    if (!_seen) { //have not seen onboarding
+      prefs.setBool('seenFirst', true);
+      Navigator.pushReplacementNamed(context, '/onBoarding1');
+    }
+
   }
 
   Widget build(BuildContext context){

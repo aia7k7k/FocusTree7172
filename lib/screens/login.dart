@@ -104,7 +104,7 @@ class LoginPageState extends State<LoginPage> {
                           padding: EdgeInsets.only(top:15.0, left:20),
                           child: GestureDetector(
                             child: Text(
-                              'Forget Pasword',
+                              'Forgot Password',
                               style: TextStyle(
                                 fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.bold,
@@ -190,10 +190,9 @@ class LoginPageState extends State<LoginPage> {
                            try{
                               final _trimmedEmail = _email.trim();
                               final _trimmedPassword = _password.trim();
-                              debugPrint(_trimmedEmail);
-                              debugPrint(_trimmedPassword);
+                              //debugPrint(_trimmedEmail);
+                              //debugPrint(_trimmedPassword);
                               FirebaseAuth.instance.signInWithEmailAndPassword(email: _trimmedEmail, password: _trimmedPassword);
-                              await new Future.delayed(Duration(seconds:1));
                               auth.getUser.then(
                               (user) {
                                 if(user != null) {

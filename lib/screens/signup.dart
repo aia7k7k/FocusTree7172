@@ -23,8 +23,6 @@ class SignupPageState extends State<SignupPage> {
 
   Widget build(BuildContext context) {
 
-    var user = Provider.of<FirebaseUser>(context);
-
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: Container(
@@ -105,6 +103,7 @@ class SignupPageState extends State<SignupPage> {
                         )
                       ),
                       onSaved: (input) => _password = input,
+                      obscureText: true,
                     ),
                     SizedBox(height:15),
                     TextFormField(
@@ -227,11 +226,16 @@ class SignupPageState extends State<SignupPage> {
                       width: double.infinity,
                       height: 45.0,
                       child: GestureDetector(
-                        onTap: (){
+                        onTap: () async{
                           //debugPrint('working');
                           _formKey.currentState.save();
                           try{
-                            FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email, password: _password);
+                            final _trimmedEmail = _email.trim();
+                            final _trimmedPassword = _password.trim();
+                            final _trimmedfN = _fName.trim();
+                            final _trimmedlN = _lName.trim();
+
+                            FirebaseAuth.instance.createUserWithEmailAndPassword(email: _trimmedEmail, password: _trimmedPassword);
                             /*firestoreInstance.collection('users').document(user.uid).setData(
                               {
                                 "firstName" :_fName,
@@ -239,7 +243,15 @@ class SignupPageState extends State<SignupPage> {
                               }
                             );*/
                             FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
-                             auth.getUser.then(
+                            await new Future.delayed(Duration(seconds:1));
+                            var user = Provider.of<FirebaseUser>(context);
+                            await firestoreInstance.collection('Tester').document(user.uid).setData(
+                              {
+                                "firstName" : _trimmedfN,
+                                "givenName" : _trimmedlN
+                              }
+                            );
+                            auth.getUser.then(
                               (user) {
                                 if(user != null) {
                                   Navigator.pushReplacementNamed(context, '/temp');

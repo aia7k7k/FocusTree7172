@@ -29,7 +29,11 @@ class MyApp extends StatelessWidget {
           '/': (context) => LandingScreen(),
           '/login': (context) => LoginPage(),
           '/signup': (context) => SignupPage(),
-          '/temp': (context) => TempPage()
+          '/temp': (context) => TempPage(),
+          '/onBoarding1': (context) => OnBoarding1(),
+          '/onBoarding2': (context) => OnBoarding2(),
+          '/onBoarding3': (context) => OnBoarding3()
+
         }
       )
     );
