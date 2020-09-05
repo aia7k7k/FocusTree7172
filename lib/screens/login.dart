@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../helpers/const.dart';
+import 'dart:io';
+import 'dart:core';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../servers/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,6 +16,7 @@ class LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String _email, _password;
   AuthService auth = AuthService();
+  String _errorMsg;
 
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -192,7 +195,7 @@ class LoginPageState extends State<LoginPage> {
                               final _trimmedPassword = _password.trim();
                               //debugPrint(_trimmedEmail);
                               //debugPrint(_trimmedPassword);
-                              FirebaseAuth.instance.signInWithEmailAndPassword(email: _trimmedEmail, password: _trimmedPassword);
+                              await FirebaseAuth.instance.signInWithEmailAndPassword(email: _trimmedEmail, password: _trimmedPassword);
                               auth.getUser.then(
                               (user) {
                                 if(user != null) {
@@ -202,7 +205,7 @@ class LoginPageState extends State<LoginPage> {
                             );
                            }
                            catch(e){
-                             print(e);
+                             String errorMsg = e.message.toString();
                            }
                         },
                         child: Material(
@@ -317,5 +320,29 @@ class LoginPageState extends State<LoginPage> {
         )
       )
     );
+  }
+  String _ErrorMsg(eMsg) {
+    if(Platform.isAndroid){
+      switch(){
+        case "The password is invalid or the user does not have a password.": {
+          return ;
+        }
+        break;
+
+        case "There is no user record corresponding to this identifier. The user may have been deleted.": {
+          return ;
+        }
+        break;
+
+        case "Given String is empty or null":{
+          return ;
+        }
+      }
+    }
+    else if(Platform.isIOS){
+      switch(){
+
+      }
+    }
   }
 }
