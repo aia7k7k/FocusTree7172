@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../helpers/const.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'dart:io';
 import 'dart:core';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,7 +16,7 @@ class LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String _email, _password;
   AuthService auth = AuthService();
-  String _errorMsg;
+  String _errorCode, _errorField;
 
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -124,58 +124,8 @@ class LoginPageState extends State<LoginPage> {
                   ],
                 )
               )
-              /*
-              child: Column(
-                children: <Widget>[
-                  TextField( //email textfield
-                    decoration: InputDecoration(
-                      hintText: 'Example: john.yuan@gmail.com',
-                      labelText: 'EMAIL',
-                      labelStyle: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green)
-                      )
-                    ),
-                  ),
-                  SizedBox(height: 20.0), //spacer
-                  TextField( //Password textfield
-                    decoration: InputDecoration(
-                      hintText: 'Example: Apple123?',
-                      labelText: 'PASSWORD',
-                      labelStyle: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green)
-                      )
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment(1.0,0.0),
-                    padding: EdgeInsets.only(top:15.0, left:20),
-                    child: GestureDetector(
-                      child: Text(
-                        'Forget Pasword',
-                        style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green
-                        )
-                      ),
-                      onTap: (){
-                        //debugPrint("works");
-                      }
-                    )
-                  ),
-                ],
-              ),*/
             ),
+            showError(),
             Container(
               child: Column(
                 children: [
@@ -186,15 +136,10 @@ class LoginPageState extends State<LoginPage> {
                       height: 45.0,
                       child: GestureDetector(
                         onTap: () async{
-                          //debugPrint('working');
                            _formKey.currentState.save();
-                           //debugPrint(_email);
-                           //debugPrint(_password);
                            try{
                               final _trimmedEmail = _email.trim();
                               final _trimmedPassword = _password.trim();
-                              //debugPrint(_trimmedEmail);
-                              //debugPrint(_trimmedPassword);
                               await FirebaseAuth.instance.signInWithEmailAndPassword(email: _trimmedEmail, password: _trimmedPassword);
                               auth.getUser.then(
                               (user) {
@@ -205,7 +150,10 @@ class LoginPageState extends State<LoginPage> {
                             );
                            }
                            catch(e){
-                             String errorMsg = e.message.toString();
+                             _errorCode = e.code.toString();
+                             setState(() {
+                               _errorField = _ErrorMsg(_errorCode);
+                             });
                            }
                         },
                         child: Material(
@@ -231,7 +179,7 @@ class LoginPageState extends State<LoginPage> {
                     )
                   ),
                   SizedBox(
-                    height: 15
+                    height: 15,
                   ),
                   Container(
                     child: Text(
@@ -321,27 +269,45 @@ class LoginPageState extends State<LoginPage> {
       )
     );
   }
+
+  Widget showError(){
+    if(_errorField != null){
+      return Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Padding(
+              child: Icon(Icons.error_outline),
+              padding: EdgeInsets.only(right: 8.0)
+            ),
+            Expanded(
+              child: AutoSizeText(_errorField, maxLines: 3),
+            )
+          ],
+        )
+      );
+    }
+    else return SizedBox(height:0);
+  }
+
   String _ErrorMsg(eMsg) {
     if(Platform.isAndroid){
-      switch(){
-        case "The password is invalid or the user does not have a password.": {
-          return ;
+      switch(eMsg){
+        case "ERROR_WRONG_PASSWORD": {
+          return "The password is invalid or the user does not have a password";
         }
         break;
 
-        case "There is no user record corresponding to this identifier. The user may have been deleted.": {
-          return ;
+        case "ERROR_USER_NOT_FOUND": {
+          return "There is no user record corresponding to this identifier. The user may have been deleted";
         }
         break;
 
-        case "Given String is empty or null":{
-          return ;
+        case "error":{
+          return "Please fill in all the fields";
         }
-      }
-    }
-    else if(Platform.isIOS){
-      switch(){
-
       }
     }
   }
