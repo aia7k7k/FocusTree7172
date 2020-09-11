@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../helpers/const.dart';
+import '../../helpers/const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../servers/services.dart';
+import '../../servers/services.dart';
 
 class LandingScreen extends StatefulWidget {
   createState() => LandingScreenState();
@@ -35,7 +35,7 @@ class LandingScreenState extends State<LandingScreen> {
     bool _seen = (prefs.getBool('seenFirst')?? false);
 
     if (!_seen) { //have not seen onboarding
-      prefs.setBool('seenFirst', true);
+      //prefs.setBool('seenFirst', true);
       Navigator.pushReplacementNamed(context, '/onBoarding1');
     }
 

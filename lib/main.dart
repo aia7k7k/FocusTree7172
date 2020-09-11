@@ -32,8 +32,8 @@ class MyApp extends StatelessWidget {
           '/temp': (context) => TempPage(),
           '/onBoarding1': (context) => OnBoarding1(),
           '/onBoarding2': (context) => OnBoarding2(),
-          '/onBoarding3': (context) => OnBoarding3()
-
+          '/onBoarding3': (context) => OnBoarding3(),
+          '/dashBoard' : (context) => DashBoardScreen()
         }
       )
     );
