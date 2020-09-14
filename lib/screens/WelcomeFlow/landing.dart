@@ -20,7 +20,7 @@ class LandingScreenState extends State<LandingScreen> {
     auth.getUser.then(
       (user) {
         if(user != null) {
-          Navigator.pushReplacementNamed(context, '/temp');
+          Navigator.pushReplacementNamed(context, '/dashBoard');
         }
       }
     );
@@ -35,7 +35,7 @@ class LandingScreenState extends State<LandingScreen> {
     bool _seen = (prefs.getBool('seenFirst')?? false);
 
     if (!_seen) { //have not seen onboarding
-      //prefs.setBool('seenFirst', true);
+      prefs.setBool('seenFirst', true);
       Navigator.pushReplacementNamed(context, '/onBoarding1');
     }
 

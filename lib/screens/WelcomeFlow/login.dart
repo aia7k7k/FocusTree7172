@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import '../helpers/const.dart';
+import '../../helpers/const.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'dart:io';
 import 'dart:core';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../servers/services.dart';
+import '../../servers/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
@@ -144,7 +144,7 @@ class LoginPageState extends State<LoginPage> {
                               auth.getUser.then(
                               (user) {
                                 if(user != null) {
-                                  Navigator.pushReplacementNamed(context, '/temp');
+                                  Navigator.pushReplacementNamed(context, '/dashBoard');
                                 }
                               }
                             );
@@ -200,7 +200,7 @@ class LoginPageState extends State<LoginPage> {
                           var user = await auth.googleSignIn();
 
                           if(user!= null) {
-                            Navigator.pushReplacementNamed(context, '/temp');
+                            Navigator.pushReplacementNamed(context, '/dashBoard');
                           }
                         },
                         child: Material(

@@ -4,12 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'package:auto_size_text/auto_size_text.dart';
-import '../helpers/const.dart';
+import '../../helpers/const.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../helpers/Utilities.dart';
+import '../../helpers/Utilities.dart';
 import 'dart:core';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../servers/services.dart';
+import '../../servers/services.dart';
 
 
 class SignupPage extends StatefulWidget {
@@ -134,7 +134,7 @@ class SignupPageState extends State<SignupPage> {
                             auth.getUser.then(
                               (user) {
                                 if(user != null) {
-                                  Navigator.pushReplacementNamed(context, '/temp');
+                                  Navigator.pushReplacementNamed(context, '/dashBoard');
                                 }
                               }
                             );
@@ -191,7 +191,7 @@ class SignupPageState extends State<SignupPage> {
                           var user = await auth.googleSignIn();
 
                           if(user!= null) {
-                            Navigator.pushReplacementNamed(context, '/temp');
+                            Navigator.pushReplacementNamed(context, '/dashBoard');
                           }
 
                         },
