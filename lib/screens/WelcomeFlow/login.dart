@@ -6,6 +6,7 @@ import 'dart:core';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../servers/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../../helpers/helpers.dart';
 
 class LoginPage extends StatefulWidget {
   createState() => LoginPageState();
@@ -138,6 +139,7 @@ class LoginPageState extends State<LoginPage> {
                         onTap: () async{
                            _formKey.currentState.save();
                            try{
+                              LoadingScreen();
                               final _trimmedEmail = _email.trim();
                               final _trimmedPassword = _password.trim();
                               await FirebaseAuth.instance.signInWithEmailAndPassword(email: _trimmedEmail, password: _trimmedPassword);
