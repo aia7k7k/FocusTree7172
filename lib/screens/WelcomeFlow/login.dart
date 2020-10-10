@@ -139,7 +139,6 @@ class LoginPageState extends State<LoginPage> {
                         onTap: () async{
                            _formKey.currentState.save();
                            try{
-                              LoadingScreen();
                               final _trimmedEmail = _email.trim();
                               final _trimmedPassword = _password.trim();
                               await FirebaseAuth.instance.signInWithEmailAndPassword(email: _trimmedEmail, password: _trimmedPassword);
@@ -199,10 +198,18 @@ class LoginPageState extends State<LoginPage> {
                       child: GestureDetector(
                         onTap: () async {
                           //debugPrint('working');
-                          var user = await auth.googleSignIn();
+                          try{
+                            var user = await auth.googleSignIn();
 
-                          if(user!= null) {
-                            Navigator.pushReplacementNamed(context, '/dashBoard');
+                            if(user!= null) {
+                              Navigator.pushReplacementNamed(context, '/dashBoard');
+                            }
+                          }
+                          catch(e){
+                            _errorCode = e.code.toString();
+                             setState(() {
+                               _errorField = "An error has occured, and I don't know why";
+                             });
                           }
                         },
                         child: Material(

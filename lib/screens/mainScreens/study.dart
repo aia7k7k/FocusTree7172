@@ -15,22 +15,28 @@ class StudySessionState extends State<StudySession> {
   Widget build(BuildContext context){
     return new Scaffold(
       body: Container(
-        child: Center(
-          child: FlatButton(
-            child: Text('logout'),
-            onPressed: () async{
-                  try {
-                    await auth.signOut();
-                    await _googleSignIn.signOut();
-                  }
-                  catch(e){
-                    debugPrint(e);
-                  }
-                  Navigator.pushReplacementNamed(context, '/');
-                },
-          )
-        )
+        
       ),
+
+      appBar: AppBar(
+        title: const Text(
+          "Study Session",
+          style: TextStyle(
+            fontFamily: 'Montserrat',
+            color: Colors.lightGreen,
+            fontSize: 25
+          ),
+        ),
+        backgroundColor: Colors.white,
+        toolbarHeight: 60,
+        actions: [
+          IconButton(icon: Icon(Icons.add), onPressed: () {
+            Navigator.pushReplacementNamed(context, '/studyCreate');
+          }, 
+          color: Colors.lightGreen,)
+        ],
+      ),
+  
       bottomNavigationBar: BottomNavigationBar(items:
         [
           BottomNavigationBarItem(
@@ -42,7 +48,7 @@ class StudySessionState extends State<StudySession> {
             title: Text('Study Session')
           )
         ].toList(),
-        fixedColor: Colors.greenAccent,
+        fixedColor: Colors.lightGreen,
         currentIndex: 1,
         onTap: (int idx) {
           switch(idx){
