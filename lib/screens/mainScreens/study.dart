@@ -2,10 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../servers/services.dart';
-<<<<<<< HEAD
 import 'package:shared_preferences/shared_preferences.dart';
-=======
->>>>>>> 010202a0f67f93f0bc3ce28c4ef7c543020a2522
+
 
 class StudySession extends StatefulWidget{
   createState() => StudySessionState();
@@ -15,7 +13,6 @@ class StudySessionState extends State<StudySession> {
 
   final FirebaseAuth auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-<<<<<<< HEAD
   List<String> sTime = [];
   List<String> bTime = [];
   List<String> presetName = [];
@@ -48,15 +45,7 @@ class StudySessionState extends State<StudySession> {
           SizedBox(height:20),
           checkShowPreset()
         ],
-=======
-
-  Widget build(BuildContext context){
-    return new Scaffold(
-      body: Container(
-        
->>>>>>> 010202a0f67f93f0bc3ce28c4ef7c543020a2522
       ),
-
       appBar: AppBar(
         title: const Text(
           "Study Session",
@@ -101,7 +90,6 @@ class StudySessionState extends State<StudySession> {
       ),
     );
   }
-<<<<<<< HEAD
   Widget checkShowPreset() {
 
     if(havePreset==false){
@@ -127,6 +115,4 @@ class StudySessionState extends State<StudySession> {
       );
     }
   }
-=======
->>>>>>> 010202a0f67f93f0bc3ce28c4ef7c543020a2522
 }

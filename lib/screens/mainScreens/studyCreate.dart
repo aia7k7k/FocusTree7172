@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'dart:math';
 import 'package:flutter/rendering.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -142,16 +141,3 @@ class StudyCreateState extends State<StudyCreate> {
       );
     }
   }
-=======
-
-class StudyCreate extends StatelessWidget {
-
-  Widget build(BuildContext context){
-    return Scaffold(
-      body: Container(
-      ),
-      appBar: AppBar(),
-    );
-  }
-}
->>>>>>> 010202a0f67f93f0bc3ce28c4ef7c543020a2522
