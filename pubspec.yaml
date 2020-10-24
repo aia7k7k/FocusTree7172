@@ -46,7 +46,7 @@ dependencies:
   shared_preferences: ^0.5.9
 
   auto_size_text: ^2.0.9
-
+  flutter_circular_slider: 2.5.0
 
 dev_dependencies:
   flutter_test:

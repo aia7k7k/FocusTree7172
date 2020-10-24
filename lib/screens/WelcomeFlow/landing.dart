@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../helpers/const.dart';
+import '../../helpers/const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../servers/services.dart';
+import '../../servers/services.dart';
 
 class LandingScreen extends StatefulWidget {
   createState() => LandingScreenState();
@@ -20,7 +20,7 @@ class LandingScreenState extends State<LandingScreen> {
     auth.getUser.then(
       (user) {
         if(user != null) {
-          Navigator.pushReplacementNamed(context, '/temp');
+          Navigator.pushReplacementNamed(context, '/dashBoard');
         }
       }
     );

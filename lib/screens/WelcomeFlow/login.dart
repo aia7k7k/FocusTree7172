@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import '../helpers/const.dart';
+import '../../helpers/const.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'dart:io';
 import 'dart:core';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../servers/services.dart';
+import '../../servers/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../../helpers/helpers.dart';
 
 class LoginPage extends StatefulWidget {
   createState() => LoginPageState();
@@ -144,7 +145,7 @@ class LoginPageState extends State<LoginPage> {
                               auth.getUser.then(
                               (user) {
                                 if(user != null) {
-                                  Navigator.pushReplacementNamed(context, '/temp');
+                                  Navigator.pushReplacementNamed(context, '/dashBoard');
                                 }
                               }
                             );
@@ -197,10 +198,18 @@ class LoginPageState extends State<LoginPage> {
                       child: GestureDetector(
                         onTap: () async {
                           //debugPrint('working');
-                          var user = await auth.googleSignIn();
+                          try{
+                            var user = await auth.googleSignIn();
 
-                          if(user!= null) {
-                            Navigator.pushReplacementNamed(context, '/temp');
+                            if(user!= null) {
+                              Navigator.pushReplacementNamed(context, '/dashBoard');
+                            }
+                          }
+                          catch(e){
+                            _errorCode = e.code.toString();
+                             setState(() {
+                               _errorField = "An error has occured, and I don't know why";
+                             });
                           }
                         },
                         child: Material(
