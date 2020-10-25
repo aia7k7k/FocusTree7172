@@ -14,7 +14,7 @@ class StudyCreateState extends State<StudyCreate> {
   List<String> bTimeTemp = [];
   List<String> presetNameTemp = [];
 
-  int endTime2, endTime, initTime, initTime2, laps1;
+  int endTime2, endTime, initTime, initTime2, laps1, endHour, endMin, percentTime;
 
   void initState() {
     super.initState();
@@ -42,11 +42,15 @@ class StudyCreateState extends State<StudyCreate> {
   int _generateRandomTime2() => Random().nextInt(60);
 
   void _shuffle() {
-    initTime = _generateRandomTime();
-    endTime = initTime;
-    initTime2 = _generateRandomTime2();
-    endTime2 = initTime2;
-    laps1 = 0;
+    setState(() {
+      initTime = _generateRandomTime();
+      endTime = initTime;
+      initTime2 = _generateRandomTime2();
+      endTime2 = initTime2;
+      laps1 = 0;
+      endHour = 0;
+      endMin = 0;
+    });
   }
 
   void _updateLabels(int init, int end, int laps){
@@ -62,10 +66,36 @@ class StudyCreateState extends State<StudyCreate> {
     });
   }
 
+  String chooseDisplay(int eH, int eM) {
+    if(eH == 0){
+      return 'Total Time of Session: '+ eM.toString()+ 'min';
+    }
+    else{
+      return 'Total Time of Session: '+ eH.toString()+'hour'+ ' '+ eM.toString()+ 'min';
+    }
+  }
+
+  String chooseDisplay2(int sH, int sM){
+    if(sH == 0){
+      return 'Total Time of Studying: '+ sM.toString()+ 'min';
+    }
+    else{
+      return 'Total Time of Studying: '+ sH.toString()+'hour'+ ' '+ sM.toString()+ 'min';
+    }
+  }
+
   Widget build(BuildContext context){
-      int _handlerIndex = 0;
-      double _lowerValue = 10;
-      double _upperValue = 70;
+
+    int tTime = endTime2+(laps1*60);
+
+    int endHour = ((endTime2+(laps1*60))~/60).toInt();
+    int endMin = (tTime-(endHour*60)).toInt();
+
+    double percentTime = endTime/120;
+    int studyTime = (((endHour*60)+endMin)*percentTime).toInt(); 
+
+    int studyHour = studyTime~/60;
+    int studyMin = studyTime%60;
       return Scaffold(
         //backgroundColor: Colors.blue[100],
         body: Container(
@@ -91,7 +121,7 @@ class StudyCreateState extends State<StudyCreate> {
                           )
                         ),
                         SizedBox(height: 10),
-                        Text('Total Time of Session: '+(endTime2+(laps1*60)).toString()+'min')
+                        Text(chooseDisplay(endHour, endMin))
                       ],
                     ),
                     SizedBox(height: 30),
@@ -110,8 +140,33 @@ class StudyCreateState extends State<StudyCreate> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text(endTime.toString())
+                          Text(chooseDisplay2(studyHour, studyMin))
                         ],
+                      ),
+                    ),
+                    SizedBox(height: 40),
+                    Container(
+                      
+                      child: FlatButton( //login
+                        color: Colors.transparent,
+                        shape: RoundedRectangleBorder(side: BorderSide(
+                          color: Colors.green[200],
+                          width: 3,
+                          style: BorderStyle.solid
+                          ),
+                          borderRadius: BorderRadius.circular(30.0)
+                        ),
+                        child: Text(
+                          'Create Preset',
+                          style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w600,
+                            color: Colors.green[300]
+                          )
+                        ),
+                        onPressed: (){
+                          //debugPrint("something");
+                        },
                       ),
                     )
                   ],
