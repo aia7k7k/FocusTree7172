@@ -36,6 +36,7 @@ class LandingScreenState extends State<LandingScreen> {
 
     if (!_seen) { //have not seen onboarding
       prefs.setBool('seenFirst', true);
+      prefs.setBool('havePreset', false);
       Navigator.pushReplacementNamed(context, '/onBoarding1');
     }
 

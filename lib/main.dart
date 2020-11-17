@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:focusTree2/screens/mainScreens/study.dart';
+import 'package:focusTree2/screens/mainScreens/study2.dart';
 import 'package:focusTree2/screens/mainScreens/studyCreate.dart';
 import 'package:provider/provider.dart';
 import 'screens/screens.dart';
@@ -37,7 +38,8 @@ class MyApp extends StatelessWidget {
           '/onBoarding3': (context) => OnBoarding3(),
           '/dashBoard' : (context) => DashBoardScreen(),
           '/studySession': (context) => StudySession(),
-          '/studyCreate': (context) => StudyCreate()
+          '/studyCreate': (context) => StudyCreate(),
+          '/study2' : (context) => StudySession2()
         }
       )
     );

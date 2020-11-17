@@ -46,7 +46,7 @@ class DashBoardScreen extends StatelessWidget {
             case 0:
             break;
             case 1:
-              Navigator.pushReplacementNamed(context, '/studySession');
+              Navigator.pushReplacementNamed(context, '/study2');
             break;
           }
         },

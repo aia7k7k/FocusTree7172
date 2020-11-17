@@ -16,20 +16,18 @@ class StudySessionState extends State<StudySession> {
   List<String> sTime = [];
   List<String> bTime = [];
   List<String> presetName = [];
-  bool havePreset = false;
+  bool _noPreset = false;
 
   Future getPresets() async {
 
     try{
       SharedPreferences pref = await SharedPreferences.getInstance();
-      sTime = pref.getStringList('sTime');
-      bTime = pref.getStringList('bTime');
-      presetName = pref.getStringList('presetList');
-      havePreset = pref.getBool('havePreset');
+      bool _have = pref.getBool('havePreset');
 
-      if(havePreset==null){
-        havePreset=false;
+      if(_have!=true){
+        _noPreset = true;
       }
+
     }
     catch(e){
       
@@ -38,6 +36,7 @@ class StudySessionState extends State<StudySession> {
 
   Widget build(BuildContext context){
     getPresets();
+    debugPrint(_noPreset.toString());
     return new Scaffold(
       body: Column(
         children: [
@@ -92,7 +91,7 @@ class StudySessionState extends State<StudySession> {
   }
   Widget checkShowPreset() {
 
-    if(havePreset==false){
+    if(_noPreset!=false){
       return Container(
         child: Text('something')
       );
