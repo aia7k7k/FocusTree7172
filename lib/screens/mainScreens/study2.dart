@@ -112,40 +112,6 @@ class StudySession2State extends State<StudySession2> {
     }
   }*/
 
-  Widget returnSomething() {
-    presetName = "TestPreset1";
-    presetSTime = 60;
-    presetBTime = 20;
-
-    return Container(
-      height: 100,
-      child: GestureDetector(
-        child: Container(
-          child: Column(
-            children: [
-              Text("test"),
-              SizedBox(height:5),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text("Studying Time"+presetSTime.toString()),
-                  Text("Break Time"+presetBTime.toString())
-                ],
-              )
-            ],
-          )
-        )
-      )
-    );
-  }
-
-  Widget testWidget(){
-
-    return Container(
-      child: Text("test")
-    );
-  }
-
   Widget betterTest(String name, int s, int b){
     presetSTime = s;
     presetBTime = b;
@@ -202,6 +168,9 @@ class StudySession2State extends State<StudySession2> {
             ),
           )
         ),
+        onTap: () {
+          Navigator.pushReplacementNamed(context, '/timertest1');
+        } 
       )
     );
   }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:focusTree2/screens/mainScreens/study.dart';
 import 'package:focusTree2/screens/mainScreens/study2.dart';
 import 'package:focusTree2/screens/mainScreens/studyCreate.dart';
+import 'package:focusTree2/screens/mainScreens/timer.dart';
 import 'package:provider/provider.dart';
 import 'screens/screens.dart';
 import 'package:firebase_analytics/observer.dart';
@@ -39,7 +40,8 @@ class MyApp extends StatelessWidget {
           '/dashBoard' : (context) => DashBoardScreen(),
           '/studySession': (context) => StudySession(),
           '/studyCreate': (context) => StudyCreate(),
-          '/study2' : (context) => StudySession2()
+          '/study2' : (context) => StudySession2(),
+          '/timertest1' : (context) => TimerTest1()
         }
       )
     );
